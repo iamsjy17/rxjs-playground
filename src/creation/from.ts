@@ -1,10 +1,9 @@
-import { from, Observable } from "rxjs";
+import { from, Observable, Subscriber } from "rxjs";
 
 export function promiseTest1() {
   from(
-    new Promise((r1, r2) => {
-      // r2(new Error("reject"));
-      r1("resolve");
+    new Promise((resolve, reject) => {
+      reject("resolve");
     })
   ).subscribe(
     () => {
@@ -21,8 +20,8 @@ export function promiseTest1() {
 
 export function promiseTest2() {
   from(
-    new Promise((r1, r2) => {
-      r2(new Error("reject"));
+    new Promise((resolve, reject) => {
+      reject(new Error("reject"));
     })
   ).subscribe(
     () => {
@@ -37,8 +36,8 @@ export function promiseTest2() {
   );
 }
 
-function subscribeToPromise(promise) {
-  return function (subscriber) {
+function subscribeToPromise(promise : Promise<any>) {
+  return function (subscriber: any) {
     promise.then(
       function (value) {
         if (!subscriber.closed) {
@@ -64,15 +63,15 @@ function subscribeToPromise(promise) {
 export function promiseTest3() {
   Observable.create(
     subscribeToPromise(
-      new Promise((r1, r2) => {
-        r1("resolve");
+      new Promise((resolve, reject) => {
+        resolve("resolve");
       })
     )
   ).subscribe(
     () => {
       console.log("next");
     },
-    (e) => {
+    (e: any) => {
       console.log(e);
     },
     () => {
@@ -84,15 +83,15 @@ export function promiseTest3() {
 export function promiseTest4() {
   Observable.create(
     subscribeToPromise(
-      new Promise((r1, r2) => {
-        r2(new Error("reject"));
+      new Promise((resolve, reject) => {
+        reject(new Error("reject"));
       })
     )
   ).subscribe(
     () => {
       console.log("next");
     },
-    (e) => {
+    (e : any) => {
       console.log(e);
     },
     () => {
