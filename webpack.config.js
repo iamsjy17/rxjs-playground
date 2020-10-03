@@ -1,26 +1,32 @@
 const path = require("path");
-
-module.exports = {
-  entry: ["@babel/polyfill", "./src/index.js"],
-  output: {
-    filename: "bundle.js",
-    path: path.resolve(__dirname, "dist/"),
-  },
-  module: {
-    rules: [
-      {
-        test: /\.js$/,
-        include: [path.resolve(__dirname, "src/js")],
-        exclude: /node_modules/,
-        use: {
-          loader: "babel-loader",
-          options: {
-            presets: ["@babel/preset-env"],
+module.exports = () => {
+  return {
+    entry: {
+      test: "./src/index.ts",
+    },
+    resolve: {
+      extensions: [".ts", ".js"],
+    },
+    module: {
+      rules: [
+        {
+          test: /\.(js|ts)$/,
+          exclude: /(node_modules)/,
+          use: {
+            loader: "babel-loader",
+            options: {
+              presets: ["@babel/preset-env", "@babel/preset-typescript"],
+            },
           },
         },
-      },
-    ],
-  },
-  devtool: "source-map",
-  mode: "development",
+      ],
+    },
+    output: {
+      filename: "[name].js",
+      chunkFilename: "[name].js",
+      path: path.resolve(__dirname, "dist"),
+    },
+    devtool: "source-map",
+    mode: "development",
+  };
 };
