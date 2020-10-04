@@ -12,7 +12,7 @@ const { from, fromEvent } = creation;
 // from.promiseTest4();
 
 // 1-2. fromEvent
-fromEvent.test();
-// fromEvent.errorTest1();
+// fromEvent.test();
+fromEvent.errorTest1();
 // fromEvent.errorTest2();
-fromEvent.completeTest();
+// fromEvent.completeTest();

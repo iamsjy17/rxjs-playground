@@ -6512,11 +6512,10 @@ var from = _creation__WEBPACK_IMPORTED_MODULE_0__["default"].from,
 // from.promiseTest3();
 // from.promiseTest4();
 // 1-2. fromEvent
+// fromEvent.test();
 
-fromEvent.test(); // fromEvent.errorTest1();
-// fromEvent.errorTest2();
-
-fromEvent.completeTest();
+fromEvent.errorTest1(); // fromEvent.errorTest2();
+// fromEvent.completeTest();
 
 /***/ })
 
